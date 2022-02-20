@@ -6,6 +6,11 @@ const kData = Symbol('Data')
 class Users {
   constructor() {
     // inicializar a propriedade privada 'kData' como uma estrutura importante vista no curso
+    /*
+      WeakMap could be used here, so when users leaves the session their data also is removed 
+      from the list of active users the problem founded was how to keep it iterable to list 
+      the users
+    */
     this[kData] = new Map()
   }
 
