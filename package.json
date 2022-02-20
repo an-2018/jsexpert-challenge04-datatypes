@@ -12,7 +12,9 @@
     "producer:dev": "nodemon --exec npm run producer",
     "consumer": "node --experimental-json-modules --experimental-top-level-await src/consumer-cli.js",
     "consumer:dev": "nodemon --exec npm run consumer",
-    "provider": "npx json-server --watch src/provider-server.json --port 3001"
+    "provider": "npx json-server --watch src/provider-server.json --port 3001",
+    "start": "npm run producer",
+    "client": "npm run consumer"
   },
   "dependencies": {
     "asciichart": "^1.5.25",
