@@ -4,12 +4,13 @@ class User {
   }
   // TODO: Alguma manipulação a fazer considerando que o objeto gerado será constantemente escrito em tela?
   [Symbol.toPrimitive](hint) {
-    if(hint === "string") {
-      return `User - id: ${this.id}`
-    }
+    console.log(hint)
+    if (hint !== "string") throw new TypeError()
+
+    return `id: ${this.id}`
   }
   toString() {
-    return `User - id: ${this.id}`
+    return `id: ${this.id}`
   }
 }
 

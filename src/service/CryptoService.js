@@ -6,20 +6,34 @@ class CryptoService {
     this.repository = repository || new CryptoRepository();
   }
   async *list() {
-    // TODO: implementar generator que chama a repository fazendo a paginação
+    // implementar generator que chama a repository fazendo a paginação
+    let isLast = false
     let currentPage = 1
-    let pagesLimit = 4
-    while(currentPage){
-      const result = await this.repository.list(currentPage, pagesLimit)
+    let pageLimit = 5
+    while (!isLast) {
+      const response = await this.repository.list(currentPage, pageLimit)
 
-      if(!result) break
-      currentPage++
-
-      for(let item of result){
-        yield item
-      }
+      const data = response.data
+      
+      const [first, nexturl, lasturl] = response.headers.link.split(',')
+      currentPage = this.extractNumber(nexturl)
+      let lastPage = this.extractNumber(lasturl)
+      
+      isLast = currentPage === lastPage
+      
+      yield data
     }
   }
+
+  extractNumber(str) {
+    /* link: '
+            <http://localhost:3001/crypto?_page=1&_limit=5>; rel="first", 
+            <http://localhost:3001/crypto?_page=2&_limit=5>; rel="next", 
+            <http://localhost:3001/crypto?_page=1000&_limit=5>; rel="last"',
+    */
+    return Number(str.match(/_page=?\d*/)[0].split('=')?.[1])
+  }
+
 }
 
 export default CryptoService;

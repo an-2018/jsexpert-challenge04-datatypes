@@ -27,19 +27,20 @@ async function mainLoop() {
     if (users.hasUsers()) {
       terminal.printSuccess(
         '---------------------------- \n' +
-          'Connected Users: ' +
-          Array.from(users).join(', ')
+        'Connected Users: ' +
+        Array.from(users).join(', ')
       );
     }
     terminal.printInfo(
       '---------------------------- \n' +
-        'Commands: \n' +
-        '\t* [press Enter]: list 5 more values \n' +
-        '\t* select <ID>: select the crypto according to the specified <ID> \n' +
-        '\t* :q : finish the process. \n'
+      'Commands: \n' +
+      '\t* [press Enter]: list 5 more values \n' +
+      '\t* select <ID>: select the crypto according to the specified <ID> \n' +
+      '\t* :q : finish the process. \n'
     );
     if (!terminal.hasDataToPrint()) {
       const { value } = await cryptoGenerator.next();
+      // const res = await cryptoGenerator.next();
       terminal.addDataToPrint(value);
     }
 
@@ -76,8 +77,8 @@ async function mainLoop() {
         });
         terminal.printSuccess(
           'REGISTER SUCCESSFULLY SELECTED AND SENT TO THE FOLLOWING USERS: \n' +
-            Array.from(users).join(', ') +
-            '\n'
+          Array.from(users).join(', ') +
+          '\n'
         );
         await terminal.wait(1000);
         break;
