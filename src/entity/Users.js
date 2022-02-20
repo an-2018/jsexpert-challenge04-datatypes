@@ -12,7 +12,7 @@ class Users {
   add(userRaw) {
     const user = new User(userRaw);
     // inserir valor na estrutura escolhida.
-    this[kData].set(userRaw)
+    this[kData].set(user.id, user)
   }
 
   hasUsers() {
@@ -23,7 +23,8 @@ class Users {
   // Me parece que o objeto gerado precisa ser iterável 🤔
   *[Symbol.iterator]() {
     for (const user of this[kData]) {
-      yield user
+      console.log(user)
+      yield user[1]
     }
   }
 
@@ -38,6 +39,7 @@ class Users {
     return new Intl.ListFormat("pt-PT", { style: "long", type: "conjunction" })
       .format(this[kData])
   }
+
 }
 
 export default Users;

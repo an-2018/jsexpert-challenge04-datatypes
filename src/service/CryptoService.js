@@ -29,7 +29,6 @@ class CryptoService {
   hasNext(str) {
     if (!str) return false
     let res = str.split(',').find(element => {
-      console.log(element)
       return element.match(/<(.*?)>; rel="next"/)
     });
     return res ? true : false

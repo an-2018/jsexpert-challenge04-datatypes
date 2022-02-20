@@ -46,7 +46,7 @@ class CustomTerminal {
   addDataToPrint(data) {
     // inserir valor na estrutura escolhida. // dica: talvez o data.id seja uma informação importante nesse trecho
     data.forEach(
-      value => this[kData].set(value.id, value)
+      (value) => this[kData].set(value.id, value)
     )
   }
 
