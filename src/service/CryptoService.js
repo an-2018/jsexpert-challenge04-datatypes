@@ -4,7 +4,7 @@ import CryptoRepository from '../repository/CryptoRepository.js';
 class CryptoService {
   constructor({ repository } = {}) {
     this.repository = repository || new CryptoRepository();
-    this.currentPage = 1
+    this.currentPage = 1000
     this.isLast = false
   }
   async *list() {
@@ -16,16 +16,18 @@ class CryptoService {
       const response = await this.repository.list(this.currentPage, limit)
       const data = response.data
 
-      if (this.hasNext(response.headers.link)) {
+      if (this.hasNext(data)) {
         this.currentPage++
-      } else {
-        this.currentPage = 1
       }
 
       yield data
     }
   }
 
+  hasNext(data) {
+    return data.length > 0
+  }
+  /*
   hasNext(str) {
     if (!str) return false
     let res = str.split(',').find(element => {
@@ -33,6 +35,7 @@ class CryptoService {
     });
     return res ? true : false
   }
+  */
 }
 
 export default CryptoService;

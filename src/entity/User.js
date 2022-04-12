@@ -6,11 +6,8 @@ class User {
   [Symbol.toPrimitive](hint) {
     if (hint !== "string") throw new TypeError()
 
-    let user = `[id: ${(this.id + "").slice(0, 6)}` + "***]"
+    const user = `[id: ${(this.id + "").substring(0, 6)}***]`
     return user
-  }
-  toString() {
-    return `id: ${this.id}`
   }
 }
 
